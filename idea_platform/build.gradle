@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+apply plugin: 'application'
+group = 'ru.partyislife'
+
+mainClassName = 'ru.partyislife.Main'
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'ru.partyislife.Main'
+    }
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    implementation group: 'org.json', name: 'json', version: '20231013'
+}
+
+shadowJar {
+    archiveBaseName.set('idea_platform')
+    archiveVersion.set('0.1')
+    archiveClassifier.set('')
+}
+
+test {
+    useJUnitPlatform()
+}
